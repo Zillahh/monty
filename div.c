@@ -11,9 +11,9 @@ void divide_second_by_top(stack_t **stk, unsigned int line_num)
 {
 	int value;
 
-	if (stack_length < 2)
+	if (b.stack_length < 2)
 	{
-		fprintf(STDOUT_FILENO,
+		fprintf(stderr,
 				"L%u: can't div, stack too short\n",
 				line_num);
 		exit(EXIT_FAILURE);
@@ -22,7 +22,7 @@ void divide_second_by_top(stack_t **stk, unsigned int line_num)
 	pop_top_element(stk, line_num);
 	if (value == 0)
 	{
-		fprintf(STDOUT_FILENO,
+		fprintf(stderr,
 				"L%u: division by zero\n",
 				line_num);
 		exit(EXIT_FAILURE);

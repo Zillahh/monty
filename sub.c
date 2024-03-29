@@ -11,15 +11,15 @@ void subtract_top_element(stack_t **stk, unsigned int line_num)
 {
 	int value;
 
-	if (stack_length < 2)
+	if (b.stack_length < 2)
 	{
-		fprintf(STDOUT_FILENO,
+		fprintf(stderr,
 				"L%u: can't sub, stack too short\n",
 				line_num);
 		exit(EXIT_FAILURE);
 	}
 
 	value = (*stk)->n;
-	pop_top_element(stk, line_num)
-		(*stk)-> -= value;
+	pop_top_element(stk, line_num);
+		(*stk)->n -= value;
 }

@@ -11,14 +11,14 @@ void swap_top_two_elements(stack_t **stk, unsigned int line_num)
 {
 	stack_t *next;
 
-	if (stack_length < 2)
+	if (b.stack_length < 2)
 	{
-		fprintf(STDOUT_FILENO,
+		fprintf(stderr,
 				"L%u: can't swap, stack too short\n",
 				line_num);
 		exit(EXIT_FAILURE);
 	}
-	if (stack_length == 2)
+	if (b.stack_length == 2)
 	{
 		*stk = (*stk)->next;
 		return;

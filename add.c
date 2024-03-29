@@ -11,9 +11,9 @@ void add_top_two_elements(stack_t **stk, unsigned int line_num)
 {
 	int total = 0;
 
-	if (stack_length < 2)
+	if (b.stack_length < 2)
 	{
-		fprintf(STDOUT_FILENO,
+		fprintf(stderr,
 				"L%u: can't add, stack too short\n",
 				line_num);
 		exit(EXIT_FAILURE);

@@ -11,9 +11,9 @@ void multiply_top_two_elements(stack_t **stk, unsigned int line_num)
 {
 	int value;
 
-	if (stack_length < 2)
+	if (b.stack_length < 2)
 	{
-		fprintf(STOUT_FILENO,
+		fprintf(stderr,
 				"L%u: can't mul, stack too short\n",
 				line_num);
 		exit(EXIT_FAILURE);

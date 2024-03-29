@@ -9,13 +9,14 @@
  */
 void print_top_value(stack_t **stk, unsigned int line_num)
 {
-	stack_t hd = *stk;
+	stack_t *hd = *stk;
 
-	if (stack_length == 0)
+	if (b.stack_length == 0)
 	{
-		fprintf(STDOUT_FILENO,
+		fprintf(stderr,
 				"L%u: can't pint, stack empty\n",
 				line_num);
 		exit(EXIT_FAILURE);
 	}
-	printf("%d\n", hd->n)
+	printf("%d\n", hd->n);
+}
