@@ -21,7 +21,7 @@ void m_queue(stack_t **hd, unsigned int line_num)
  *
  * Return: void
  */
-void m_addqueue(stack_t **hd, int value)
+void addqueue(stack_t **hd, int value)
 {
 	stack_t *new_node, *aux;
 

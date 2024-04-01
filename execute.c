@@ -9,7 +9,7 @@
  *
  * Return: void
  */
-int m_execute(char *content, stack_t **stk, unsigned int line_num, FILE *file)
+int execute(char *content, stack_t **stk, unsigned int line_num, FILE *file)
 {
 	instruction_t
 		opst[] = {
