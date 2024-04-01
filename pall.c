@@ -1,26 +1,23 @@
 #include "monty.h"
 
 /**
- * print_stack - prints the stack
- * @stk: pointer to the head
- * @line_num: line number to be executed
+ * m_pall - print the stack
+ * @hd: stack head
+ * @line_num: used non
  *
  * Return: void
  */
-void print_stack(stack_t **stk, unsigned int line_num)
+void m_pall(stack_t **hd, unsigned int line_num)
 {
-	stack_t *hd;
+	stack_t *h;
+	(void)line_num;
 
-	(void)(line_num);
-
-	hd = *stk;
-	while (hd != NULL)
+	h = *hd;
+	if (h == NULL)
+		return;
+	while (h)
 	{
-		printf("%d\n", hd->n);
-		hd =hd->next;
-		if (hd == *stk)
-		{
-			return;
-		}
+		printf("%d\n", h->n);
+		h = h->next;
 	}
 }

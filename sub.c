@@ -1,25 +1,32 @@
 #include "monty.h"
 
 /**
- * subtract_top_element - subtract top element of stack and push
- * @stk: pointer to the head
+ * m_sub - subtraction
+ * @hd: stack head
  * @line_num: line number
  *
- * Return: No return
+ * Return: void
  */
-void subtract_top_element(stack_t **stk, unsigned int line_num)
+void m_sub(stack_t **hd, unsigned int line_num)
 {
-	int value;
+	stack_t *aux;
+	int sus, nodes;
 
-	if (b.stack_length < 2)
+	aux = *hd;
+	for (nodes = 0; aux != NULL; nodes++)
+		aux = aux->next;
+	if (nodes < 2)
 	{
-		fprintf(stderr,
-				"L%u: can't sub, stack too short\n",
-				line_num);
+		fprintf(stderr, "L%d: can't sub, stack too short\n", line_num);
+
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*hd);
 		exit(EXIT_FAILURE);
 	}
-
-	value = (*stk)->n;
-	pop_top_element(stk, line_num);
-		(*stk)->n -= value;
+	aux = *hd;
+	sus = aux->next->n - aux->n;
+	aux->next->n = sus;
+	*hd = aux->next;
+	free(aux);
 }

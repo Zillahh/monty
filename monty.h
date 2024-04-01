@@ -1,33 +1,12 @@
-#ifndef _MONTY_H_
-#define _MONTY_H_
-
-#include <stdlib.h>
+#ifndef MONTY_H
+#define MONTY_H
 #include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <string.h>
-#include <sys/stat.h>
-#include <sys/types.h>
 #include <ctype.h>
-
-/** 
- * struct var_s - struct containing the main variables of the Monty interpreter 
- * @queue: flag to determine if in stack vs queue mode 
- * @stack_length: length of the stack 
- */ 
-typedef struct var_s
-{ 
-	int queue; 
-	size_t stack_length; 
-} var_t; 
-
-#define STACK 0 
-#define QUEUE 1 
-
-/* global struct to hold flag for queue and stack length */ 
-extern var_t b;
-
-
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -40,10 +19,26 @@ extern var_t b;
  */
 typedef struct stack_s
 {
-	int n;
-	struct stack_s *prev;
-	struct stack_s *next;
+        int n;
+        struct stack_s *prev;
+        struct stack_s *next;
 } stack_t;
+
+/**
+ * struct bus_s - variable args, file, line content
+ * @arg: value
+ * @file: pointer to monty file
+ * @content: line content
+ * @lifi: flag change(stack to queue)
+ */
+typedef struct bus_s
+{
+	char *arg;
+	FILE *file;
+	char *content;
+	int lifi;
+} bus_t;
+extern bus_t bus;
 
 /**
  * struct instruction_s - opcode and its function
@@ -55,19 +50,32 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-	char *opcode;
-	void (*f)(stack_t **stack, unsigned int line_number);
+        char *opcode;
+        void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
+char *_realloc(char *ptr, unsigned int old_size, unsigned int new_size);
+ssize_t getstdin(char **lineptr, int file);
+char *clean_line(char *content);
+void m_push(stack_t **hd, unsigned int line_num);
+void m_pall(stack_t **hd, unsigned int line_num);
+void m_pint(stack_t **hd, unsigned int line_num);
+int execute(char *content, stack_t **hd, unsigned int line_num,FILE *file);
+void free_stack(stack_t *hd);
+void m_pop(stack_t **hd, unsigned int line_num);
+void m_add(stack_t **hd, unsigned int line_num);
+void m_swap(stack_t **hd, unsigned int line_num);
+void m_nop(stack_t **hd, unsigned int line_num);
+void m_sub(stack_t **hd, unsigned int line_num);
+void m_mul(stack_t **hd, unsigned int line_num);
+void m_div(stack_t **hd, unsigned int line_num);
+void m_mod(stack_t **hd, unsigned int line_num);
+void m_pchar(stack_t **hd, unsigned int line_num);
+void m_pstr(stack_t **hd, unsigned int line_num);
+void m_rotl(stack_t **hd, unsigned int line_num);
+void m_rotr(stack_t **hd, unsigned int line_num);
+void m_addnode(stack_t **hd, int value);
+void addqueue(stack_t **hd, int value);
+void m_queue(stack_t **hd, unsigned int line_num);
+void m_stack(stack_t **hd, unsigned int line_num);
 
-
-void push_stack(stack_t **stk, unsigned int line_num);
-void print_stack(stack_t **stk, unsigned int line_num);
-void print_top_value(stack_t **stk, unsigned int line_num);
-void pop_top_element(stack_t **stk, unsigned int line_num);
-void swap_top_two_elements(stack_t **stk, unsigned int line_num);
-void add_top_two_elements(stack_t **stk, unsigned int line_num);
-void do_nothing(stack_t **stk, unsigned int line_num);
-void subtract_top_element(stack_t **stk, unsigned int line_num);
-stack_t *add_new_node(stack_t **stk, const int value);
-
-#endif /*_MONTY_H_ */
+#endif

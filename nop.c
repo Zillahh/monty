@@ -1,14 +1,14 @@
 #include "monty.h"
 
 /**
- * do_nothing - does no operation
- * @stk: pointer to the head
+ * m_nop - nothing
+ * @hd: stack head
  * @line_num: line number
  *
- * Return: No return
+ * Return: void
  */
-void do_nothing(stack_t **stk, unsigned int line_num)
+void m_nop(stack_t **hd, unsigned int line_num)
 {
-	(void)stk;
-	(void)line_num;
+	(void) line_num;
+	(void) hd;
 }

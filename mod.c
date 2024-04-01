@@ -1,31 +1,43 @@
 #include "monty.h"
 
 /**
- * compute_remainder - compute the modulus of the second element divided by the top element
- * @stk: pointer to head
+ * m_mod - computes the left over of the division of the
+ * second top element by the top element of the stack
+ * @hd: stack head
  * @line_num: line number
  *
- * Return: No return
+ * Return: void
  */
-void compute_remainder(stack_t **stk, unsigned int line_num)
+void m_mod(stack_t **hd, unsigned int line_num)
 {
-	int value;
+	stack_t *h;
+	int length = 0, aux;
 
-	if (b.stack_length < 2)
+	h = *hd;
+	while (h)
 	{
-		fprintf(stderr,
-				"L%u: can't mod, stack too short\n",
-				line_num);
+		h = h->next;
+		length++;
+	}
+	if (length < 2)
+	{
+		fprintf(stderr, "L%d: can't mod, stack too short\n", line_num);
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*hd);
 		exit(EXIT_FAILURE);
 	}
-	value = (*stk) ->n;
-	pop_top_element(stk, line_num);
-	if (value == 0)
+	h = *hd;
+	if (h->n == 0)
 	{
-		fprintf(stderr,
-				"L%u: division by zero\n",
-				line_num);
+		fprintf(stderr, "L%d: division by zero\n", line_num);
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*hd);
 		exit(EXIT_FAILURE);
 	}
-	(*stk)->n %= value;
+	aux = h->next->n % h->n;
+	h->next->n = aux;
+	*hd = h->next;
+	free(h);
 }

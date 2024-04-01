@@ -1,34 +1,33 @@
 #include "monty.h"
 
 /**
- * swap_top_two_elements - swap the top two elements of 'stk'
- * @stk: pointer to the head
+ * m_swap - adds the top two elements
+ * @hd: stack head
  * @line_num: line number
  *
- * Return: No return
+ * Return: void
  */
-void swap_top_two_elements(stack_t **stk, unsigned int line_num)
+void m_swap(stack_t **hd, unsigned int line_num)
 {
-	stack_t *next;
+	stack_t *h;
+	int length = 0, aux;
 
-	if (b.stack_length < 2)
+	h = *hd;
+	while (h)
 	{
-		fprintf(stderr,
-				"L%u: can't swap, stack too short\n",
-				line_num);
+		h = h->next;
+		length++;
+	}
+	if (length < 2)
+	{
+		fprintf(stderr, "L%d: can't swap, stack too short\n", line_num);
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*hd);
 		exit(EXIT_FAILURE);
 	}
-	if (b.stack_length == 2)
-	{
-		*stk = (*stk)->next;
-		return;
-	}
-	next = (*stk)->next;
-	next->prev = (*stk)->prev;
-	(*stk)->prev->next = next;
-	(*stk)->prev = next;
-	(*stk)->next = next->next;
-	next->next->prev = *stk;
-	next->next = *stk;
-	*stk = next;
+	h = *hd;
+	aux = h->n;
+	h->n = h->next->n;
+	h->next->n = aux;
 }

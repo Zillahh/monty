@@ -1,50 +1,42 @@
 #include "monty.h"
 
 /**
- * verify_digit - checks that a string contains digits only
- * @input_string: the string been checked
- *
- * Return: 0 for digits only, else 1
- */
-static int verify_digit(char *input_string)
-{
-	int index;
-
-	for (index = 0; input_string[index]; index++)
-	{
-		if (input_string[index] == '-' && index == 0)
-			continue;
-		if (isdigit(input_string[index]) == 0)
-			return (1);
-	}
-	return (0);
-}
-
-/**
- * push_stack - add an integer to the stack
- * @stk: pointer to the stack head
+ * m_push - add node to the stack
+ * @hd: stack head
  * @line_num: line number
  *
- * Return: no return
+ * Return: void
  */
-void push_stack(stack_t **stk, unsigned int line_num)
+void m_push(stack_t **hd, unsigned int line_num)
 {
-	char *argument;
-	int value;
+	int value, j = 0, flag = 0;
 
-	argument = strtok(NULL, "\n\t\r ");
-	if (argument == NULL || verify_digit(argument))
+	if (bus.arg)
 	{
-		fprintf(stderr,
-				"L%u: usage: push integer\n",
-				line_num);
-		exit(EXIT_FAILURE);
-	}
-	value = atoi(argument);
-	if (!add_new_node(stk, value))
-	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
-	b.stack_length++;
+		if (bus.arg[0] == '-')
+			j++;
+		for (; bus.arg[j] != '\0'; j++)
+		{
+			if (bus.arg[j] > 57 ||
+					bus.arg[j] < 48)
+
+				flag = 1; }
+		if (flag == 1)
+		{
+			fprintf(stderr, "L%d: usage: push integer\n", line_num);
+			fclose(bus.file);
+			free(bus.content);
+			free_stack(*hd);
+			exit(EXIT_FAILURE); }}
+	else
+	{ fprintf(stderr, "L%d: usage: push integer\n", line_num);
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*hd);
+		exit(EXIT_FAILURE); }
+	value = atoi(bus.arg);
+	if (bus.lifi == 0)
+		m_addnode(hd, value);
+	else
+		addqueue(hd, value);
 }
